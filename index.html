@@ -27,7 +27,7 @@
 
         .activity-container {
             width: 100%;
-            max-width: 1200px; /* Constrains full-width so it doesn't look stretched on large monitors */
+            max-width: 1170px; /* Updated to exactly 1170px */
             margin: 0 auto;
             background: #ffffff;
             border-radius: 8px;
@@ -79,7 +79,7 @@
 
         @media (min-width: 768px) {
             .tabs {
-                width: 320px;
+                width: 250px; /* Reduced from 320px */
                 flex-shrink: 0;
             }
         }
@@ -208,11 +208,11 @@
             }
             .tab-text {
                 flex: 1;
-                padding-right: 20px;
+                padding-right: 30px;
             }
             .tab-image {
-                flex: 0 0 320px; /* Keeps the image at a consistent, readable width */
-                max-width: 320px;
+                flex: 0 0 250px; /* Reduced to make the image smaller and prevent stretching */
+                max-width: 250px;
                 border-radius: 8px;
                 box-shadow: 0 6px 16px rgba(0,0,0,0.15);
                 object-fit: cover;
@@ -222,7 +222,7 @@
         @media (max-width: 1023px) {
             .tab-image {
                 width: 100%;
-                max-width: 400px;
+                max-width: 280px; /* Reduced to take up less vertical space on smaller screens */
                 margin: 0 auto;
                 display: block;
                 border-radius: 8px;
