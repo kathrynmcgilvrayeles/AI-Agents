@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agents in L&D - Interactive Activity</title>
+    <style>
+        /* Brand Colors */
+        :root {
+            --gray-blue: #abb5bf;
+            --dark-navy: #1f2a52;
+            --bright-teal: #00bec7;
+            --light-cyan: #d2f0f0;
+            --steel-blue: #2e4d6b;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .activity-container {
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid var(--gray-blue);
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--dark-navy);
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 5px solid var(--bright-teal);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 0;
+            color: var(--light-cyan);
+            font-size: 16px;
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .layout {
+                flex-direction: row;
+            }
+        }
+
+        /* Tabs Navigation */
+        .tabs {
+            background-color: var(--light-cyan);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-right: 1px solid var(--gray-blue);
+        }
+
+        @media (min-width: 768px) {
+            .tabs {
+                width: 30%;
+            }
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 20px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--dark-navy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--gray-blue);
+        }
+
+        .tab-btn:hover {
+            background-color: var(--gray-blue);
+            color: #ffffff;
+        }
+
+        .tab-btn.active {
+            background-color: var(--bright-teal);
+            color: #ffffff;
+            border-left: 5px solid var(--dark-navy);
+        }
+
+        /* Content Area */
+        .content-area {
+            padding: 30px;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .content-area {
+                width: 70%;
+            }
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Elements */
+        h2 {
+            color: var(--dark-navy);
+            margin-top: 0;
+            border-bottom: 2px solid var(--bright-teal);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--steel-blue);
+            margin-top: 20px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .alert-box {
+            background-color: var(--light-cyan);
+            border-left: 4px solid var(--bright-teal);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            color: var(--dark-navy);
+        }
+
+        .alert-box strong {
+            color: var(--steel-blue);
+        }
+
+        .pill {
+            display: inline-block;
+            background-color: var(--steel-blue);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Image Layouts */
+        .tab-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 1024px) {
+            .tab-flex {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .tab-text {
+                flex: 1;
+            }
+            .tab-image {
+                width: 300px;
+                flex-shrink: 0;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                object-fit: cover;
+            }
+        }
+        
+        @media (max-width: 1023px) {
+            .tab-image {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+                display: block;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="activity-container">
+    <div class="header">
+        <h1>Types of AI Agents in L&D</h1>
+        <p>Select a topic below to explore how AI assistants can transform instructional design and learner experiences.</p>
+    </div>
+
+    <div class="layout">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'intro')">1. The Basics</button>
+            <button class="tab-btn" onclick="openTab(event, 'out-of-box')">2. Out-of-the-Box</button>
+            <button class="tab-btn" onclick="openTab(event, 'custom')">3. Custom-Built</button>
+            <button class="tab-btn" onclick="openTab(event, 'agentic')">4. Agentic AI</button>
+            <button class="tab-btn" onclick="openTab(event, 'copilot')">5. Microsoft Copilot</button>
+            <button class="tab-btn" onclick="openTab(event, 'google')">6. Google Gemini</button>
+            <button class="tab-btn" onclick="openTab(event, 'claude')">7. Anthropic Claude</button>
+        </div>
+
+        <div class="content-area">
+            
+            <div id="intro" class="tab-content active">
+                <div class="tab-flex">
+                    <div class="tab-text">
+                        <h2>The Basics: Workflow vs. Learner</h2>
+                        <p>As L&D professionals, there are two distinct ways we can leverage AI Agents and Assistants:</p>
+                        <ul>
+                            <li><strong>L&D Workflow (Behind-the-Scenes):</strong> Agents that act as your instructional design assistants—speeding up needs analysis, storyboarding, or administrative tasks.</li>
+                            <li><strong>Learner Experience (Front-of-House):</strong> Agents that our learners interact with directly for performance support, coaching, or personalised learning journeys.</li>
+                        </ul>
+                        <div class="alert-box">
+                            <strong>Note on Access:</strong> More often than not, you will need a paid LLM account (Copilot Pro, ChatGPT Plus, Gemini Advanced) when creating Custom Agents or processing large L&D datasets (like long video transcripts). Free accounts have strict token limits that are easily exceeded by complex instructional design prompts.
+                        </div>
+                    </div>
+                    <img src="AI Agents1.png" alt="Deep Learning AI Agents" class="tab-image">
+                </div>
+            </div>
+
+            <div id="out-of-box" class="tab-content">
+                <div class="tab-flex">
+                    <div class="tab-text">
+                        <h2>Out-of-the-Box Agents</h2>
+                        <span class="pill">Ready-to-Use</span> <span class="pill">No Setup</span>
+                        <p>These are pre-configured by software providers (like Google or Microsoft) to handle common, high-frequency tasks. They provide immediate productivity gains for your ID workflow.</p>
+                        
+                        <h3>Examples in L&D:</h3>
+                        <ul>
+                            <li><strong>The Analyst:</strong> Instead of manually reviewing an hour-long Subject Matter Expert (SME) interview, use the Analyst to summarise the transcript, pull out the top 5 key takeaways, and draft initial learning objectives.</li>
+                            <li><strong>The Researcher:</strong> Optimised for deep-diving into web and internal data. Use this to quickly synthesise a dense 50-page compliance manual into a 2-page microlearning script.</li>
+                        </ul>
+                    </div>
+                    <img src="AI Agents2.png" alt="Working Together - Custom-built agents" class="tab-image">
+                </div>
+            </div>
+
+            <div id="custom" class="tab-content">
+                <div class="tab-flex">
+                    <div class="tab-text">
+                        <h2>Custom-Built Agents</h2>
+                        <span class="pill">Tailored Specialists</span> <span class="pill">Brand Safe</span>
+                        <p>These are agents created by you (using tools like Custom GPTs or Copilot Studio) to perform specific functions unique to your organisation's learning strategy. They provide consistency and ensure the AI doesn't hallucinate outside of approved materials.</p>
+                        
+                        <h3>Use Cases:</h3>
+                        <ul>
+                            <li><strong>Interactive Roleplay (For Learners):</strong> A "Feedback Simulator Agent" where the agent acts as an underperforming employee, and the learner must practise delivering feedback using your organisation's "SBI" model.</li>
+                            <li><strong>Storyboard Agent (For L&D):</strong> An internal agent trained on your tone of voice and ID templates. Feed it raw content, and it generates a properly formatted e-learning storyboard.</li>
+                            <li><strong>Performance Support:</strong> A "Compliance Navigator" agent connected to your SharePoint, acting in the flow of work to answer questions exclusively based on the latest safety regulations.</li>
+                        </ul>
+                    </div>
+                    <img src="AI Agents3.jpg" alt="Autonomous Goal Pursuit" class="tab-image">
+                </div>
+            </div>
+
+            <div id="agentic" class="tab-content">
+                <h2>Agentic AI</h2>
+                <span class="pill">Autonomous</span> <span class="pill">Goal-Oriented</span>
+                <p>Agentic AI is a system that can pursue a goal across multiple steps autonomously—deciding what to do next, using tools, and adapting along the way—without a human guiding every move.</p>
+                
+                <div class="alert-box">
+                    <strong>The Key Shift for L&D:</strong> You give it a <em>learning or performance goal</em>, not a step-by-step instruction.
+                </div>
+                
+                <p>Unlike standard prompting, an agentic system can plan, act, check its own work, and keep going until the goal is reached.</p>
+                <p><em>Example Prompt: "Analyse the Q3 sales data, identify the biggest product knowledge gap, draft a 5-question quiz to address it, and send it to the LMS Admin for review."</em></p>
+            </div>
+
+            <div id="copilot" class="tab-content">
+                <h2>Copilot in Action for L&D</h2>
+                <p>Microsoft delivers agentic AI primarily through Copilot Agents—AI workers that operate across Microsoft 365, Teams, SharePoint, and Power Platform.</p>
+                
+                <ul>
+                    <li><strong>Copilot Studio Agents:</strong> A 90-day Onboarding Agent that welcomes new hires, answers localised HR questions, automatically assigns compliance modules in Viva Learning, and checks in with their manager at day 30—entirely autonomously.</li>
+                    <li><strong>SharePoint Agents:</strong> An "Accessibility Checker Agent" pointed at your L&D team's repository of WCAG guidelines. It reviews course outlines to ensure they meet standards before development begins.</li>
+                    <li><strong>Power Automate Agents:</strong> If a safety incident is logged in your risk system, the agent automatically triggers the assignment of a specific safety refresher course to the relevant team.</li>
+                    <li><strong>M365 Copilot Actions:</strong> When asked to "prep me for tomorrow's training delivery," Copilot scans your calendar, emails, and past feedback to produce a facilitator briefing, unprompted.</li>
+                </ul>
+            </div>
+
+            <div id="google" class="tab-content">
+                <h2>Google Gemini & Gems</h2>
+                <p>Google integrates advanced AI capabilities into its ecosystem through Gemini. For L&D professionals seeking custom solutions, Gemini Advanced introduces <strong>Gems</strong>.</p>
+                
+                <ul>
+                    <li><strong>Custom Gems:</strong> Gems act as bespoke subject matter experts. You can create an "Instructional Design Reviewer Gem," configure it with your organisation's adult learning principles, and use it to critique draft storyboards for engagement and clarity.</li>
+                    <li><strong>Workspace Integration:</strong> Gemini integrates seamlessly with Google Docs, Slides, and Drive. You can prompt Gemini in Docs to transform a lengthy policy document into a modular facilitator guide.</li>
+                    <li><strong>Data Synthesis:</strong> Upload raw survey data from course evaluations directly to Gemini Advanced, prompting it to synthesise the feedback into actionable insights and learning trends.</li>
+                </ul>
+            </div>
+
+            <div id="claude" class="tab-content">
+                <h2>Anthropic Claude (Projects)</h2>
+                <p>Claude is widely regarded by L&D professionals for its nuanced writing, conversational tone, and massive context window. Its equivalent to custom agents is managed through <strong>Projects</strong>.</p>
+                
+                <ul>
+                    <li><strong>Claude Projects:</strong> Create a dedicated, persistent workspace for a specific training program. Upload all source materials (e.g., PDFs, policies, video transcripts) and set custom instructions so Claude acts exclusively as the subject matter expert for that domain.</li>
+                    <li><strong>Superior Context Handling:</strong> Claude excels at distilling dense, complex information without losing critical context. This makes it exceptional for developing accurate compliance, technical, or legal training materials.</li>
+                    <li><strong>Interactive Artifacts:</strong> Claude can generate and preview code, flowcharts, or document structures directly within the chat via "Artifacts," dramatically streamlining the development of interactive learning components.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        // Hide all content areas
+        var tabcontent = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove("active");
+        }
+
+        // Remove active class from all buttons
+        var tablinks = document.getElementsByClassName("tab-btn");
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+
+</body>
+</html>
